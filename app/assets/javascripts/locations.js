@@ -1,4 +1,5 @@
 //Generating locations
+/*
 $(document).ready(function(){
 	var endLocation = new google.maps.LatLng($('#endpoint #lat').text(),$('#endpoint #lng').text());
 	var helper = new google.maps.StreetViewService();
@@ -13,4 +14,5 @@ $(document).ready(function(){
 		});
 	});
 });
+*/
 
