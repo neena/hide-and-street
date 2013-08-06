@@ -22,20 +22,11 @@ h1 {
  	top:10px;
  	right:10px;
 }
-.Register{
-	height:45px;
-	width: 85px;
-	font-size: 18px;
+
+.logo {
+	width: 450px;
 }
-.Login{
-	height: 45px;
-	width: 85px;
-	font-size: 18px;
-	position:absolute;
-	top:0;
-	right:0;
-	width:200px;
-}
+
 .panorama {
 	position:absolute;
 	left:0px;
@@ -45,5 +36,9 @@ h1 {
 	z-index:-1;
 }
 .map {
+	display:none;
+}
+
+#endpoint {
 	display:none;
 }

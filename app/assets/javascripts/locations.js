@@ -1,4 +1,5 @@
 //Generating locations
+<<<<<<< HEAD
 $(document).ready(function(){
 	var endLocation = new google.maps.LatLng($('#endpoint #lat').text(),$('#endpoint #lng').text());
 	var helper = new google.maps.StreetViewService();
@@ -13,3 +14,6 @@ $(document).ready(function(){
 		});
 	});
 });
+=======
+
+>>>>>>> 9048a02589f4cba202ac4b9ff3f6627f55964902
