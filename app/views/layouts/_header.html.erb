@@ -7,15 +7,18 @@
 		<%= link_to "Login",new_user_session_path, :class => "btn btn-primary" %>
 	<% else %>
 		<div class="btn-group">
-		  <button type="button" class="btn btn-default"><%= current_user.email %></button>
 		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		  	<%= current_user.email %>
 		    <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu">
+		  	<li>
+		  		<a>Score: <%=current_user.score%></a>
+		  	</li>
+		  	<li class="divider"></li>
 		    <li>
 		    	<%= link_to "Edit my profile",edit_user_registration_path %>
 		    </li>
-		    <li class="divider"></li>
 		    <li>
 		    	<%= link_to "Logout", destroy_user_session_path, :method => :delete %>
 		    </li>
