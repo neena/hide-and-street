@@ -1,3 +1,2 @@
 //Generating locations
 
-var 
