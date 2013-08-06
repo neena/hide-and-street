@@ -49,7 +49,6 @@ $(document).ready(function() {
 			// 1020 steps
 
 			var totalDistance = Street.distanceBetween(globals.startlatLng, globals.endlatLng);
-			var totalDistance = 50;
 			var scale = totalDistance + (0.25 * totalDistance);
 
 			var percentage = (distance / scale);
@@ -59,7 +58,6 @@ $(document).ready(function() {
 
 			var steps = 1020;
 			var currentSteps = steps * percentage;
-			console.log(totalDistance);
 			if (currentSteps >= 765) {
 				var r = 0;
 				var g = 255 - (currentSteps - 765);
@@ -82,7 +80,7 @@ $(document).ready(function() {
 			}
 			console.log(currentSteps);
 			// console.log("rgba(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ",1)");
-			$(".logo").css("background","rgba(" + r + "," + g + "," + b + ",1)");
+			$(".logo").css("background","rgba(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ",1)");
 
 
 			//$("div").css("background", "rgba(2,34,34,1)");
