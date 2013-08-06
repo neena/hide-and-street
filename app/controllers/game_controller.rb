@@ -1,5 +1,5 @@
 class GameController < ApplicationController
 	def show
-		@endpoint = Endpoint.first(:order => "RANDOM()")
+		@endpoint = Endpoint.first
 	end
 end
