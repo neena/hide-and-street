@@ -1,4 +1,16 @@
 <!-- Single button -->
+<div id="div-1a" class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Action <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>
 
 <!-- Button trigger modal -->
   <div class="float-right"><a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">About</a>
@@ -29,4 +41,7 @@
 
 <button type="button" class="btn btn-success Register">Register</button>
 <button type="button" class="btn btn-primary Login">Login</button></div>
-<%= image_tag("logo.png", :class => "logo") %>
+<%= image_tag("logo.png", :class => "logo") %><h1> Hide + Street</h1>
+
+<div id="map-canvas" style="display:none;"></div>
+<div id="pano" class="panorama"></div>
