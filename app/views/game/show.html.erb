@@ -1,33 +1,10 @@
-<!-- Button trigger modal -->
-<div class="float-right"><a data-toggle="modal" href="#myModal" class="btn btn-primary">About</a>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">About us!</h4>
-      </div>
-      <div class="modal-body">
-        <p> We all as a team worked on this project together, each having a different, but nonetheless important roles:</p>
-        <p>Neena Dugar- Role in the back end team, for Hide + Street, (the game), she did the random point generation algorithm.</p>
-        <p>Andrew Deniszczyc- Role in both the back end team + the front end team, for Hide + Street, (the game), he did the Street View API integration.</p>
-        <p>Leah Shields- Role in the back end team, for Hide + Street, (the game), she did the end point generation.</p>
-        <p>Oliver Johnson- Role in both the back end team and the front end team, for Hide + Street, (the game and layout of page), he did the hot and cold sensor and the logo.</p>
-        <p>Joel Knowles- Role in the front end team, for Hide + Street, (the webpage design), he did the logo, wireframes and fonts and colours.</p>
-        <p>Neel Dugar- Role in the front end team, for Hide + Street (the main webpage), he did the basic webpage code, and the fonts and colours.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<button type="button" class="btn btn-success register">Register</button>
-<button type="button" class="btn btn-primary login">Login</button></div>
-<%= image_tag("logo.png", :class => "logo") %>
-
-
+<div id="map-canvas" style="display:none;"></div>
 <div id="pano" class="panorama"></div>
+<div id="endpoint">
+    <div id="lat">
+      <%=@endpoint.lat%>
+    </div>
+    <div id="lng">
+      <%=@endpoint.lng%>
+    </div>
+</div>
