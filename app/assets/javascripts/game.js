@@ -20,15 +20,26 @@ $(document).ready(function() {
 		bindEvents: function() {
 			google.maps.event.addListener(globals.panorama, 'position_changed', Street.panoChanged);
 		},
+		winGame: function() {
+
+			var finalTime = Street.getTime();
+			var time = finalTime - globals.startTime; // Time milliseconds 
+
+			var steps = globals.steps; // Steps
+
+			$("#winner").modal("show")
+			$heat.css("background","rgba(255,0,0,1)");
+			$num.html("0");
+		},
 		compareIDs: function() {
 			if (globals.currentID == globals.endID) {
 				// You are on the spot
-				$("#winner").modal("show")
-				$heat.css("background","rgba(255,0,0,1)");
-				$num.html("0");
+				Street.winGame();
 			}
 		},
 		panoChanged: function(location) {
+			globals.steps++;
+
 			globals.currentID = globals.panorama.getPano();
 			globals.currentlatLng = globals.panorama.getPosition();
 
@@ -36,6 +47,20 @@ $(document).ready(function() {
 			
 			var distance = Street.distanceBetween(globals.currentlatLng, globals.endlatLng);
 			Street.distanceCalculate(distance);
+		},
+		getTime: function() {
+			var d = new Date();
+			var n = d.getTime();
+			return n;
+		}
+		setupGame: function() {
+			globals.totalDistance = Street.distanceBetween(globals.startlatLng, globals.endlatLng);
+			Street.makeMap(globals.startlatLng);
+
+			globals.startTime = Street.getTime();
+			globals.steps = 0;
+
+			i = 0;
 		},
 		distanceCalculate: function(distance) {
 
@@ -100,11 +125,6 @@ $(document).ready(function() {
 				}, 1);
 			}
 
-		},
-		setupGame: function() {
-			globals.totalDistance = Street.distanceBetween(globals.startlatLng, globals.endlatLng);
-			Street.makeMap(globals.startlatLng);
-			i = 0;
 		},
 		getPanoID: function(position, callback) {
 			var sv = new google.maps.StreetViewService();
