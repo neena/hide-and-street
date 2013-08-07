@@ -60,12 +60,14 @@ h1 {
 }
 
 #hide-button{
+	display:none;
 	position: absolute;
 	width: 200px;
 	bottom: 10px;
 	left: 50%;
 	margin-left:-100px;
 }
+
 .sign-in {
 	background-color:white;
 	background-image: image-url('map-bg.png');
