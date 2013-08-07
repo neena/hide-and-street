@@ -7,6 +7,7 @@ $(document).ready(function() {
 	  	}
 	}
 
+
 	$heat = $("#heat");
 	$num = $("#num");
 
@@ -62,6 +63,35 @@ $(document).ready(function() {
 
 			i = 0;
 		},
+
+		makeGradientColor: function(color1, color2, percent) {
+
+			// http://stackoverflow.com/questions/8732401/how-to-figure-out-all-colors-in-a-gradient
+		    var newColor = {};
+
+		    function makeChannel(a, b) {
+		        return(a + Math.round((b-a)*(percent/100)));
+		    }
+
+		    function makeColorPiece(num) {
+		        num = Math.min(num, 255);   // not more than 255
+		        num = Math.max(num, 0);     // not less than 0
+		        var str = num.toString(16);
+		        if (str.length < 2) {
+		            str = "0" + str;
+		        }
+		        return(str);
+		    }
+
+		    newColor.r = makeChannel(color1.r, color2.r);
+		    newColor.g = makeChannel(color1.g, color2.g);
+		    newColor.b = makeChannel(color1.b, color2.b);
+		    newColor.cssColor = "#" + 
+		                        makeColorPiece(newColor.r) + 
+		                        makeColorPiece(newColor.g) + 
+		                        makeColorPiece(newColor.b);
+		    return(newColor);
+		},
 		distanceCalculate: function(distance) {
 
 			// 4 sets of 255 colour changes
@@ -70,39 +100,17 @@ $(document).ready(function() {
 			var totalDistance = globals.totalDistance;
 			var scale = totalDistance + (0.25 * totalDistance);
 
-			var percentage = (distance / scale);
+			var percentage = (distance / scale) * 100;
 
-			if (percentage > 1) { percentage = 1; }
+			if (percentage > 100) { percentage = 100; }
 			else if (percentage < 0) { percentage = 0.01; }
 
+			var yellow = {r:255, g:0, b:0};
+			var blue = {r:0, g:0, b:255};
 
-			var steps = 1020;
-			var currentSteps =  (steps * percentage);
-			
-			if (currentSteps >= 765) {
-				var r = 0;
-				var g = 255 - (currentSteps - 765);
-				var b = 255;
-			}
-			else if (currentSteps < 765 && currentSteps >= 510) {
-				var r = 0;
-				var g = 255;
-				var b = 255 - (765 - currentSteps);
-			}
-			else if (currentSteps < 510 && currentSteps >= 255) {
-				var r = (510 - currentSteps);
-				var g = 255;
-				var b = 0;
-			}
-			else if (currentSteps < 255) {
-				var r = 255;
-				var g = currentSteps;
-				var b = 0;
-			}
+			var newColor = Street.makeGradientColor(yellow, blue, percentage);
 
-
-
-			$heat.css("background","rgba(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ",1)");
+			$heat.css("background-color", newColor.cssColor);
 
 			var previous = Number($num.html());
 

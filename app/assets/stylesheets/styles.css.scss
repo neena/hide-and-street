@@ -60,12 +60,14 @@ h1 {
 }
 
 #hide-button{
+	display:none;
 	position: absolute;
 	width: 200px;
 	bottom: 10px;
 	left: 50%;
 	margin-left:-100px;
 }
+
 .sign-in {
 	background-color:white;
 	background-image: image-url('map-bg.png');
@@ -132,10 +134,10 @@ h1 {
 	font-size:30px;
 	color:rgba(255, 255, 255, 0.9);
 
-	-webkit-transition: all 1s ease-in-out;
-	-moz-transition: all 1s ease-in-out;
-	-o-transition: all 1s ease-in-out;
-	transition: all 1s ease-in-out;
+	-webkit-transition: background 1s ease-in-out;
+	-moz-transition: background 1s ease-in-out;
+	-o-transition: background 1s ease-in-out;
+	transition: background 1s ease-in-out;
 
 	.num {
 		font-family: "Righteous";
