@@ -1,8 +1,8 @@
 $(document).ready(function(){
-	var center = new google.maps.LatLng(42.345573,-71.098326);
+	var center = new google.maps.LatLng(52.48947,-1.886322);
 	var mapOptions = {
 	    center: center,
-	    zoom: 14,
+	    zoom: 7,
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
 	var map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
