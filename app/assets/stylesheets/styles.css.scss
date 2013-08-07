@@ -43,6 +43,7 @@ h1 {
 	display:none;
 }
 
+
 .score-box{
 	background-color: white;
 	border-radius: 10px;
@@ -95,5 +96,38 @@ h1 {
 }
 .modal-body{
 	text-align: left;
+}
+
+
+.heat {
+	border-radius: 50%;
+	position:absolute;
+	bottom:10px;
+	left:10px;
+	width:150px;
+	height:150px;
+	padding-top:45px;
+	background:red;
+	text-align:center;
+	line-height:150px;
+	font-family: "Righteous";
+	font-size:30px;
+	color:rgba(255, 255, 255, 0.9);
+
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+
+	.num {
+		font-family: "Righteous";
+		font-size:30px;
+		line-height:30px;
+	} 
+	.help {
+		font-family: "Righteous";
+		font-size:15px;
+		line-height:15px;
+	}
 }
 

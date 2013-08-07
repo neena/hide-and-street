@@ -7,50 +7,107 @@ $(document).ready(function() {
 	  	}
 	}
 
+	$heat = $("#heat");
+	$num = $("#num");
 
-
-	globals = {}
+	globals = {};
 	var Street = {
 		init: function() {
 			// Set up varibles & maps
-			Street.setupGame();
+			Street.getNearestRoad();
+	
 		},
 		bindEvents: function() {
-			google.maps.event.addListener(globals.panorama, 'pano_changed', Street.panoChanged);
+			google.maps.event.addListener(globals.panorama, 'position_changed', Street.panoChanged);
 		},
 		compareIDs: function() {
 			if (globals.currentID == globals.endID) {
 				// You are on the spot
+				$("#winner").modal("show")
+				$heat.css("background","rgba(255,0,0,1)");
+				$num.html("0");
 			}
 		},
-		panoChanged: function() {
-
+		panoChanged: function(location) {
 			globals.currentID = globals.panorama.getPano();
 			globals.currentlatLng = globals.panorama.getPosition();
 
 			Street.compareIDs();
+			
+			var distance = Street.distanceBetween(globals.currentlatLng, globals.endlatLng);
+			Street.distanceCalculate(distance);
+		},
+		distanceCalculate: function(distance) {
 
-			Street.distanceBetween(globals.currentlatLng, globals.endlatLng);
+			// 4 sets of 255 colour changes
+			// 1020 steps
+
+			var totalDistance = globals.totalDistance;
+			var scale = totalDistance + (0.25 * totalDistance);
+
+			var percentage = (distance / scale);
+
+			if (percentage > 1) { percentage = 1; }
+			else if (percentage < 0) { percentage = 0.01; }
+
+
+			var steps = 1020;
+			var currentSteps =  (steps * percentage);
+			
+			if (currentSteps >= 765) {
+				var r = 0;
+				var g = 255 - (currentSteps - 765);
+				var b = 255;
+			}
+			else if (currentSteps < 765 && currentSteps >= 510) {
+				var r = 0;
+				var g = 255;
+				var b = 255 - (765 - currentSteps);
+			}
+			else if (currentSteps < 510 && currentSteps >= 255) {
+				var r = (510 - currentSteps);
+				var g = 255;
+				var b = 0;
+			}
+			else if (currentSteps < 255) {
+				var r = 255;
+				var g = currentSteps;
+				var b = 0;
+			}
+
+
+
+			$heat.css("background","rgba(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ",1)");
+
+			var previous = Number($num.html());
+
+			if (previous < distance) {
+				var timer = setInterval(function() {
+					$num.html(previous);
+					if (Number(previous) == Number(distance)) {
+						clearInterval(timer);
+					}
+					previous++;
+				}, 1);
+			}
+			else if (previous >= distance) {
+				var timer = setInterval(function() {
+					$num.html(previous);
+					if (previous == distance) {
+						clearInterval(timer);
+					}
+					previous--;
+				}, 1);
+			}
+
 		},
 		setupGame: function() {
-
-			globals.startID = "Wfr9hxmNdnNs7TeScyBfJg";
-			Street.getPanoIDLocation(globals.startID, function(callback) {
-				globals.startlatLng = callback;
-			});
-
-			globals.endID = "pFytalyiJWo3L7Ya9e4eEg";
-			Street.getPanoIDLocation(globals.endID, function(callback) {
-				globals.endlatLng = callback;
-			});
-
-			
-			Street.getPanoIDLocation(globals.startID, Street.makeMap)
-
+			globals.totalDistance = Street.distanceBetween(globals.startlatLng, globals.endlatLng);
+			Street.makeMap(globals.startlatLng);
+			i = 0;
 		},
-		getPanoID: function(lat, lng, callback) {
+		getPanoID: function(position, callback) {
 			var sv = new google.maps.StreetViewService();
-			var position = new google.maps.LatLng(lat, lng);
 			sv.getPanoramaByLocation(position, 50, function(data) {
 				var pano = data.location.pano;
 				callback(pano);
@@ -107,53 +164,54 @@ $(document).ready(function() {
 		distanceBetween: function(start, end) {
 			if (typeof start !== undefined && end !== undefined) { 
 				var distance = 1;
+				
 				var result = $.parseJSON(Street.distanceBetweenGoogle(start, end));
+				
 				if (result.rows[0].elements[0].status == "OK") {
 					distance = result.rows[0].elements[0].distance.value;
 
 				}
 				else {
+					
 					distance = Street.distanceBetweenCrow(start, end);
+					
 				}
 				
 				return distance;
 
 			}
 		},
+		getRandomStartpoint: function(endLocation, callback) {
+			var helper = new google.maps.StreetViewService();
+			helper.getPanoramaByLocation(endLocation, 50, function(data){
+				
+			globals.endlatLng = data.location.latLng;
+			globals.endID = data.location.pano;
 
+			var distance = Math.random()*100+100; //Start point is 100 to 200m from end
+			var angle = Math.random()*360;
+
+			var startLocation = new google.maps.geometry.spherical.computeOffset(globals.endlatLng, distance, angle);
+			helper.getPanoramaByLocation(startLocation,50, function(data){
+				if (data !== null) {
+					globals.startlatLng = data.location.latLng;
+					globals.startID = data.location.pano;
+					Street.setupGame();
+				}
+			});
+
+			});
+		},
 		getNearestRoad: function(lat, lng) {
 
+			var lat = Number($('#lat').html());
+			var lng = Number($('#lng').html());
 
-			// Replace with function for nearest Street View
-
-			/*
-			if (typeof lat !== undefined && lng !== undefined) {
-				
-				var directionsService = new google.maps.DirectionsService();
-				var position = new google.maps.LatLng(lat, lng);
-
-			    var request = {
-			        origin:position, 
-			        destination:position,
-			        travelMode: google.maps.DirectionsTravelMode.DRIVING
-			    };
-
-			    directionsService.route(request, function(response, status) {
-			      	if (status == google.maps.DirectionsStatus.OK) {
-			      		var road = response.routes[0].legs[0].start_location;
-			      	}
-			      	else {
-			      		// Request new position from backend
-			      	}
-			    });
-				
-			}
-			else {
-				console.log("getNearestRoad: lat, lng not set");
-			}
-
-			*/
-
+			var endLocation = new google.maps.LatLng(lat, lng);
+			
+			Street.getRandomStartpoint(endLocation, function(callback) {
+				Street.setupGame();
+			});
 		}
 	}
 	Street.init();
