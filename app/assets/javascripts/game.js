@@ -213,10 +213,14 @@ $(document).ready(function() {
 
 			var startLocation = new google.maps.geometry.spherical.computeOffset(globals.endlatLng, distance, angle);
 			helper.getPanoramaByLocation(startLocation,50, function(data){
+
 				if (data !== null) {
 					globals.startlatLng = data.location.latLng;
 					globals.startID = data.location.pano;
 					Street.setupGame();
+				}
+				else {
+					Street.getRandomStartpoint(endLocation);
 				}
 			});
 
@@ -226,12 +230,24 @@ $(document).ready(function() {
 
 			var lat = Number($('#lat').html());
 			var lng = Number($('#lng').html());
+			var panoID = $.trim($('#panoid').html());
 
-			var endLocation = new google.maps.LatLng(lat, lng);
-			
-			Street.getRandomStartpoint(endLocation, function(callback) {
-				Street.setupGame();
-			});
+			if (panoID !== "") {
+				console.log(panoID);
+				Street.getPanoIDLocation(panoID, function(location) {
+					console.log(location);
+					Street.getRandomStartpoint(location, function(callback) {
+						console.log("DONE");
+					});
+				})
+			}
+			else {
+				var endLocation = new google.maps.LatLng(lat, lng);
+				
+				Street.getRandomStartpoint(endLocation, function(callback) {
+					Street.setupGame();
+				});
+			}
 		}
 	}
 	Street.init();
