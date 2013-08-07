@@ -57,6 +57,7 @@ $(document).ready(function() {
 		setupGame: function() {
 			globals.totalDistance = Street.distanceBetween(globals.startlatLng, globals.endlatLng);
 			Street.makeMap(globals.startlatLng);
+			Street.wikiAPI();
 
 			globals.startTime = Street.getTime();
 			globals.steps = 0;
@@ -233,6 +234,19 @@ $(document).ready(function() {
 			});
 
 			});
+		},
+		wikiAPIcall: function(location) {
+			var request = "http://api.wikilocation.org/articles?lat=" + location.lb + "&lng=" + location.mb + "&limit=3&offset=5&format=json&locale=en"
+			var result = $.ajax({
+				url: request,
+				datatype: 'json',
+				async: false
+			}).responseText;
+			return result;
+		},
+		wikiAPI: function() {
+			var result = $.parseJSON(Street.wikiAPIcall(globals.startlatLng));
+			console.log(result);
 		},
 		getNearestRoad: function(lat, lng) {
 
