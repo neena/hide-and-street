@@ -109,7 +109,7 @@ $(document).ready(function() {
 			if (previous < distance) {
 				var timer = setInterval(function() {
 					$num.html(previous);
-					if (Number(previous) == Number(distance)) {
+					if (Number(previous) >= Number(distance)) {
 						clearInterval(timer);
 					}
 					previous++;
@@ -118,7 +118,7 @@ $(document).ready(function() {
 			else if (previous >= distance) {
 				var timer = setInterval(function() {
 					$num.html(previous);
-					if (previous == distance) {
+					if (previous <= distance) {
 						clearInterval(timer);
 					}
 					previous--;
