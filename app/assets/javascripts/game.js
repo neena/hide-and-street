@@ -23,7 +23,7 @@ $(document).ready(function() {
 		compareIDs: function() {
 			if (globals.currentID == globals.endID) {
 				// You are on the spot
-				alert("You win");
+				$("#winner").modal("show")
 				$heat.css("background","rgba(255,0,0,1)");
 				$num.html("0");
 			}
@@ -80,8 +80,7 @@ $(document).ready(function() {
 			$heat.css("background","rgba(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ",1)");
 
 			var previous = Number($num.html());
-			$num.html(currentSteps);
-			
+
 			if (previous < distance) {
 				var timer = setInterval(function() {
 					$num.html(previous);
