@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+if Endpoint.count == 0
+	Endpoint.create(:lat => 54.326147, :lng => -2.723883)
+end 
