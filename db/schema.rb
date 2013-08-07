@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130806202404) do
+ActiveRecord::Schema.define(version: 20130807092801) do
 
-  create_table "endpoints", force: true do |t|
+  create_table "challenges", force: true do |t|
     t.string "lat"
     t.string "lng"
   end
