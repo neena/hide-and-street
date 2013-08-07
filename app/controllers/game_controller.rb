@@ -1,5 +1,5 @@
 class GameController < ApplicationController
 	def show
-		@endpoint = Endpoint.first
+		@endpoint = Challenge.offset(rand(Challenge.count)).first
 	end
 end
