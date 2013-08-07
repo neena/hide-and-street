@@ -47,3 +47,39 @@ h1 {
 	background-color: white;
 	border-radius: 10px;
 }
+.sign-in {
+	background-color:white;
+	background-image: image-url('map-bg.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	text-align: center;
+	text-decoration: bold;
+	position: center;
+	input[type=text] {
+		padding: 10px;
+	}
+}
+.edit{
+	background-color: white;
+	background-image: image-url('map-bg.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	text-align: center;
+	text-decoration: bold;
+	position: center;
+	input[type=text] {
+		padding: 10px;
+	}
+}
+.register{
+	background-color:white;
+	background-image: image-url('map-bg.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	text-align: center;
+	text-decoration: bold;
+	position: center;
+	input[type=text] {
+		padding: 10px;
+	}
+}
