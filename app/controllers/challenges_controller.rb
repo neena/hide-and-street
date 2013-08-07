@@ -6,11 +6,11 @@ class ChallengesController < ApplicationController
 		@challenge = Challenge.new
 	end
 	def create
-  	@challenge = Challenge.new(params[:challenge])
-  	if @challenge.save
-  		redirect_to @challenge, notice: 'Challenge successful.'
-  	else
-  		render action: 'new'
-  	end
-  end
+		@challenge = Challenge.new(params.require(:challenge).permit(:pano))
+		if @challenge.save
+			redirect_to @challenge, notice: 'Challenge successful.'
+		else
+			render action: 'new'
+		end
+	end
 end
