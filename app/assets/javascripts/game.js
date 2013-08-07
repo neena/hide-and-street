@@ -52,7 +52,7 @@ $(document).ready(function() {
 			var d = new Date();
 			var n = d.getTime();
 			return n;
-		}
+		},
 		setupGame: function() {
 			globals.totalDistance = Street.distanceBetween(globals.startlatLng, globals.endlatLng);
 			Street.makeMap(globals.startlatLng);
