@@ -19,7 +19,7 @@
   <div class="num" id="num"></div>
   <div class="help">metres away</div>
 </div>
-
+ <div id="map-canvas" class="map"></div>
 <div id="pano" class="panorama"></div>
 <div id="endpoint">
     <div id="lat">
@@ -32,3 +32,15 @@
       <%=@endpoint.pano%>
     </div>
 </div>
+
+  <div class="modal-dialog info-panel hidden" id="info_modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" id="info_modal_close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="info_modal_title">Info</h4>
+      </div>
+      <div class="modal-body" id="info_modal_body">
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->

@@ -150,6 +150,7 @@ h1 {
 		line-height:15px;
 	}
 }
+
 #social-buttons{
 	width: 300px;
 	margin-left: auto;
@@ -164,4 +165,18 @@ h1 {
 }
 #challenge-buttons{
 	text-align: center;
+}
+
+
+.info-panel {
+	margin:0;
+	position:absolute;
+	bottom:15px;
+	right:15px;
+	width: 300px;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    margin-left: 300px;
+}
+.hidden {
+	// display:none;
 }
