@@ -7,8 +7,9 @@ class ChallengesController < ApplicationController
 	end
 	def create
 		@challenge = Challenge.new(params.require(:challenge).permit(:pano))
+		@challenge.creator = current_user if user_signed_in?
 		if @challenge.save
-			redirect_to @challenge, notice: 'Challenge successful.'
+			redirect_to challenge_path(@challenge, :just_made => true)
 		else
 			render action: 'new'
 		end

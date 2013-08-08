@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :completions
   has_many :completed_challenges, :through => :completions, :source => :challenge
-
+  has_many :challenges
   def score 
   	completions.sum(:score)
   end

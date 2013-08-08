@@ -150,4 +150,18 @@ h1 {
 		line-height:15px;
 	}
 }
-
+#social-buttons{
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	top: 10px;
+	#fb-share {
+		position: relative;
+		top: -7.5px;
+		margin-right: 35px;
+	}
+}
+#challenge-buttons{
+	text-align: center;
+}

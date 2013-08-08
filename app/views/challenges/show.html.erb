@@ -1,1 +1,23 @@
 <%= render "game/game"%>
+<% if params[:just_made] %>
+	<div class="modal" id="share-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4 class="modal-title">Share your challenge!</h4>
+			  </div>
+			  <div class="modal-body">
+				<%= render "challenges/social" %>
+			  </div>
+			  <div class="modal-footer">
+				<div id="challenge-buttons">
+					<%= link_to "Make another challenge",new_challenge_path, :class => "btn btn-primary" %> 
+					<%= link_to "Play in single player mode",root_path, :class => "btn btn-primary" %> 
+				</div>
+			  </div>
+
+			</div>
+		</div>
+	</div>
+<% end %>
