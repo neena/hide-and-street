@@ -7,6 +7,15 @@ $(document).ready(function() {
 	  	}
 	}
 
+	Number.prototype.roundTo = function(num) {
+	    var resto = this%num;
+	    if (resto <= (num/2)) { 
+	        return this-resto;
+	    } else {
+	        return this+num-resto;
+	    }
+	}
+
 
 	$heat = $("#heat");
 	$num = $("#num");
@@ -14,15 +23,19 @@ $(document).ready(function() {
 	$info_modal = $("#info_modal");
 	$info_modal_close = $("#info_modal_close");
 
+	$facebook_share = $("#facebook_share");
 	globals = {};
 	var Street = {
 		init: function() {
 			// Set up varibles & maps
+
+			globals.url = "http://localhost:3000/challenges/"
 			Street.getNearestRoad();
 	
 		},
 		bindEvents: function() {
 			google.maps.event.addListener(globals.panorama, 'position_changed', Street.panoChanged);
+			$facebook_share.bind("click", Street.showFacebookDialog)
 			$info_modal_close.bind("click", Street.closeInfoModal);
 		},
 		calculatePoints: function(finalTime) {
@@ -30,7 +43,18 @@ $(document).ready(function() {
 			var time = finalTime;
 
 			var score = distance - (time/1000);
+
+			score = score + (globals.collectedWiki * 30);
+			score = score.roundTo(5);
 			alert(score);
+
+			$.ajax({
+				type: "POST",
+			 	url: url,
+			 	data: data,
+			 	success: success,
+				dataType: dataType
+			});
 		},
 		winGame: function() {
 			var finalTime = Street.getTime();
@@ -73,6 +97,7 @@ $(document).ready(function() {
 
 			globals.startTime = Street.getTime();
 			globals.steps = 0;
+			globals.collectedWiki = 0;
 
 			i = 0;
 		},
@@ -270,7 +295,7 @@ $(document).ready(function() {
 			$info_modal.removeClass("hidden");
 		},
 
-		showWiki: function(id) {
+		showWiki: function(element, id) {
 			$.ajax({
 			    url: 'http://en.wikipedia.org/w/api.php',
 			    data: {
@@ -298,6 +323,10 @@ $(document).ready(function() {
 					              .attr('href', 'http://en.wikipedia.org'+$(this).attr('href'))
 					              .attr('target','wikipedia');
 					        });
+					        if (element.data.clicked == 0) {
+								element.data.clicked = 1;
+					        	globals.collectedWiki++;
+					        }
 					        Street.showInfoModal(title.replace("_"," "), wikipage)
 					      
 				        }
@@ -328,8 +357,9 @@ $(document).ready(function() {
 			    itemMarker.data.id = id;
 			    itemMarker.data.title = title;
 			    itemMarker.data.url = url;
+			    itemMarker.data.clicked = url;
 			    google.maps.event.addListener(itemMarker, 'click', function(event) {
-					Street.showWiki(this.data.id);
+					Street.showWiki(this,this.data.id);
 				});
 			    var article = articles[i].url;
 
@@ -337,8 +367,8 @@ $(document).ready(function() {
 		},
 		getNearestRoad: function(lat, lng) {
 			globals.id = Number($("#gameid").html());
-			var lat = Number($('#lat').html());
-			var lng = Number($('#lng').html());
+			var lat = $('#lat').html();
+			var lng = $('#lng').html();
 			var panoID = $.trim($('#panoid').html());
 
 			if (panoID !== "") {
@@ -348,14 +378,34 @@ $(document).ready(function() {
 					});
 				})
 			}
-			else {
+			else if (!typeof lat === undefined && !typeof lng === undefined) {
+				lat = Number(lat);
+				lng = Number(lng);
 				var endLocation = new google.maps.LatLng(lat, lng);
 				
 				Street.getRandomStartpoint(endLocation, function(callback) {
 					Street.setupGame();
 				});
 			}
+		},
+		showFacebookDialog: function() {
+			var link = globals.url + $(this).data("id");
+			$.getScript('//connect.facebook.net/en_UK/all.js', function(){
+				FB.init({
+			      appId: '704296779595964',
+			      channelUrl: '',
+			    });   
+				FB.ui({
+				  method: 'feed',
+				  link: link,
+				  picture: 'http://fbrell.com/f8.jpg',
+				  name: 'Hide and Street',
+				  caption: 'Hide and seek for Google Street View!',
+				  description: 'I challenge you to find me!'
+				}, function(response){});
+			});
 		}
 	}
+
 	Street.init();
 })
