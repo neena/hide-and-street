@@ -151,3 +151,15 @@ h1 {
 	}
 }
 
+.info-panel {
+	margin:0;
+	position:absolute;
+	bottom:15px;
+	right:15px;
+	width: 300px;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    margin-left: 300px;
+}
+.hidden {
+	// display:none;
+}

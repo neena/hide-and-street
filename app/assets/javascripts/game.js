@@ -11,6 +11,9 @@ $(document).ready(function() {
 	$heat = $("#heat");
 	$num = $("#num");
 
+	$info_modal = $("#info_modal");
+	$info_modal_close = $("#info_modal_close");
+
 	globals = {};
 	var Street = {
 		init: function() {
@@ -20,6 +23,7 @@ $(document).ready(function() {
 		},
 		bindEvents: function() {
 			google.maps.event.addListener(globals.panorama, 'position_changed', Street.panoChanged);
+			$info_modal_close.bind("click", Street.closeInfoModal);
 		},
 		winGame: function() {
 
@@ -182,7 +186,7 @@ $(document).ready(function() {
 		},
 		distanceBetweenGoogle: function(start, end) {
 			var distance = this;
-			var request = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + start.lb + "," + start.mb + "&destinations=" + end.lb + "," + end.mb + "&mode=driving&sensor=false"
+			var request = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + start.lb + "," + start.mb + "&destinations=" + end.lb + "," + end.mb + "&mode=walking&sensor=false"
 			var result = $.ajax({
 				url: request,
 				datatype: 'json',
@@ -234,9 +238,9 @@ $(document).ready(function() {
 			});
 
 			});
-		},
+		}, 
 		wikiAPIcall: function(location) {
-			var request = "http://api.wikilocation.org/articles?lat=" + location.lb + "&lng=" + location.mb + "&limit=3&offset=5&format=json&locale=en"
+			var request = "http://api.wikilocation.org/articles?lat=" + location.lb + "&lng=" + location.mb + "&limit=10&format=json&locale=en&radius=500"
 			var result = $.ajax({
 				url: request,
 				datatype: 'json',
@@ -244,9 +248,79 @@ $(document).ready(function() {
 			}).responseText;
 			return result;
 		},
+		closeInfoModal: function() {
+			$info_modal.addClass("hidden");
+		},
+		showInfoModal: function(title, body) {
+			$("#info_modal_title").html(title);
+			$("#info_modal_body").html(body);
+			$info_modal.removeClass("hidden");
+		},
+
+		showWiki: function(id) {
+			$.ajax({
+			    url: 'http://en.wikipedia.org/w/api.php',
+			    data: {
+			    	action:'query',
+			    	pageids:id,
+			    	format:'json'
+			    },
+    			dataType:'jsonp',
+    			success: function(data) {
+    				title = data.query.pages[id].title.replace(' ','_');
+				    $.ajax({
+				        url: 'http://en.wikipedia.org/w/api.php',
+				        data: {
+				        	action:'parse',
+				        	prop:'text',
+				        	page:title,
+				        	format:'json'
+				        },
+				        dataType:'jsonp',
+				        success: function(data) {
+					        wikipage = $("<div>"+data.parse.text['*']+"</div>").children('p:first');
+					        wikipage.find('sup').remove();
+					        wikipage.find('a').each(function() {
+					        $(this)
+					              .attr('href', 'http://en.wikipedia.org'+$(this).attr('href'))
+					              .attr('target','wikipedia');
+					        });
+					        Street.showInfoModal(title.replace("_"," "), wikipage)
+					      
+				        }
+    				});
+				}
+			});
+		},
 		wikiAPI: function() {
 			var result = $.parseJSON(Street.wikiAPIcall(globals.startlatLng));
-			console.log(result);
+			var articles = result.articles;
+			for (var i = 0; i < articles.length; i++) {
+
+				var id = articles[i].id;
+			    var title = articles[i].title;
+			    var lat = articles[i].lat;
+			    var lng = articles[i].lng;
+			    var url = articles[i].mobileurl;
+			    var item = new google.maps.LatLng(lat, lng);
+			    var image = "/assets/wikipedia.png";
+			    var itemMarker = new google.maps.Marker({
+				      position: item,
+				      map: globals.panorama,
+				      icon: image,
+				      title: title
+				});
+			    itemMarker.data = {};
+
+			    itemMarker.data.id = id;
+			    itemMarker.data.title = title;
+			    itemMarker.data.url = url;
+			    google.maps.event.addListener(itemMarker, 'click', function(event) {
+					Street.showWiki(this.data.id);
+				});
+			    var article = articles[i].url;
+
+			}
 		},
 		getNearestRoad: function(lat, lng) {
 
@@ -255,11 +329,9 @@ $(document).ready(function() {
 			var panoID = $.trim($('#panoid').html());
 
 			if (panoID !== "") {
-				console.log(panoID);
 				Street.getPanoIDLocation(panoID, function(location) {
-					console.log(location);
 					Street.getRandomStartpoint(location, function(callback) {
-						console.log("DONE");
+
 					});
 				})
 			}
