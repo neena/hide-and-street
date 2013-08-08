@@ -4,7 +4,8 @@
 	      	
 	<% if !user_signed_in? %>
 		<%= link_to "Register",new_user_registration_path, :class => "btn btn-success" %>
-		<%= link_to "Login",new_user_session_path, :class => "btn btn-primary" %>
+		<%= link_to "Login",new_user_session_path, :class => "btn btn-warning" %>
+		<%= link_to "Challenges",new_challenge_path, :class => "btn btn-info" %>
 	<% else %>
 		<div class="btn-group">
 		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -15,6 +16,9 @@
 		  	<li>
 		  		<a>Score: <%=current_user.score%></a>
 		  	</li>
+		  	<li>
+		    	<%= link_to "New Challenge",new_challenge_path %>
+		    </li>
 		  	<li class="divider"></li>
 		    <li>
 		    	<%= link_to "Edit my profile",edit_user_registration_path %>
