@@ -1,0 +1,10 @@
+<template name="leaderboard">
+  <div class="sort">
+    <input type="button" class="sortByDate" value="date" />
+  </div>
+  <div class="leaderboard">
+    {{#each players}}
+      {{> player}}
+    {{/each}}
+  </div>
+...
