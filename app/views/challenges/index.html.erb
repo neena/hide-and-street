@@ -1,0 +1,11 @@
+<ul id="challenges">   
+	<% current_user.incomplete_challenges.each do |challenge|%> 
+    <li>
+ 		<h4>
+ 			<%=challenge.creator.email %> has challenged you	
+ 			<%=link_to "Accept this challenge", challenge, :class =>"btn btn-primary"%> 
+ 		</h4> 
+ 	</li> 
+ 	<% end %>
+	<li> <%=link_to "New Challenge", new_challenge_path, :class =>"btn btn-primary"%></li>
+</ul>

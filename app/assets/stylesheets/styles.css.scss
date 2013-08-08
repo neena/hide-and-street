@@ -10,6 +10,14 @@ h1 {
 	font-family: Righteous;
 	font-size: 20px;
 }
+
+h2,h3,h4,h5 {
+	font-family: Righteous;
+}
+
+h4{
+	display: inline;
+}
 #div-1a {
  position:absolute;
  top:0;
@@ -164,4 +172,9 @@ h1 {
 }
 #challenge-buttons{
 	text-align: center;
+}
+
+
+li {
+	list-style: none;
 }

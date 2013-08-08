@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130808103408) do
+ActiveRecord::Schema.define(version: 20130808125748) do
 
   create_table "challenges", force: true do |t|
     t.string  "lat"
     t.string  "lng"
     t.string  "pano"
     t.integer "creator_id"
+    t.integer "seeker_id"
   end
 
   create_table "completions", force: true do |t|
