@@ -9,7 +9,7 @@
 			  </div>
 			  <div class="modal-body">
 			  	<% if @endpoint.seeker %>
-			  		This challenge has been sent to <%= @endpoint.seeker %>
+			  		This challenge has been sent to <%= @endpoint.seeker.username %>
 			  	<% else %>
 				  	<%= form_for @endpoint do |f| %>
 				  		<label> Challenge a Hide and Street user: </label>

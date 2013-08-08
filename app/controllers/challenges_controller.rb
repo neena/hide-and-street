@@ -10,6 +10,7 @@ class ChallengesController < ApplicationController
 	def create
 		@challenge = Challenge.new(params.require(:challenge).permit(:pano))
 		@challenge.creator = current_user if user_signed_in?
+		@challenge.seeker = User.find(params[:challenge][:seeker_id])
 		if @challenge.save
 			redirect_to challenge_path(@challenge, :just_made => true)
 		else
@@ -19,7 +20,7 @@ class ChallengesController < ApplicationController
 
 	def update
 		@challenge = Challenge.find(params[:id])
-		@challenge.seeker = User.find_by_email(params[:challenge][:seeker])
+		@challenge.seeker = User.find_by_username(params[:challenge][:seeker])
 		if @challenge.save
 			redirect_to challenge_path(@challenge, :just_made => true)
 		else 
