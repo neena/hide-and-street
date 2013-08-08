@@ -370,7 +370,6 @@ $(document).ready(function() {
 			var lat = $('#lat').html();
 			var lng = $('#lng').html();
 			var panoID = $.trim($('#panoid').html());
-			alert("yo");
 			if (panoID !== "") {
 				Street.getPanoIDLocation(panoID, function(location) {
 					Street.getRandomStartpoint(location, function(callback) {
