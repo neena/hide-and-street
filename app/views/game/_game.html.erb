@@ -22,17 +22,12 @@
  <div id="map-canvas" class="map"></div>
 <div id="pano" class="panorama"></div>
 <div id="endpoint">
-    <div id="lat">
-      <%=@endpoint.lat%>
-    </div>
-    <div id="lng">
-      <%=@endpoint.lng%>
-    </div>
-    <div id="panoid">
-      <%=@endpoint.pano%>
-    </div>
+    <div id="lat"><%=@endpoint.lat%></div>
+    <div id="lng"><%=@endpoint.lng%></div>
+    <div id="panoid"><%=@endpoint.pano%></div>
+    <div id="gameid"><%=@endpoint.id%></div>
 </div>
-
+<div class="info-panel-container">
   <div class="modal-dialog info-panel hidden" id="info_modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -44,3 +39,4 @@
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
+</div>

@@ -25,10 +25,18 @@ $(document).ready(function() {
 			google.maps.event.addListener(globals.panorama, 'position_changed', Street.panoChanged);
 			$info_modal_close.bind("click", Street.closeInfoModal);
 		},
-		winGame: function() {
+		calculatePoints: function(finalTime) {
+			var distance = globals.totalDistance;
+			var time = finalTime;
 
+			var score = distance - (time/1000);
+			alert(score);
+		},
+		winGame: function() {
 			var finalTime = Street.getTime();
 			var time = finalTime - globals.startTime; // Time milliseconds 
+
+			var points = Street.calculatePoints(time);
 
 			var steps = globals.steps; // Steps
 
@@ -219,27 +227,28 @@ $(document).ready(function() {
 			}
 		},
 		getRandomStartpoint: function(endLocation, callback) {
+
 			var helper = new google.maps.StreetViewService();
 			helper.getPanoramaByLocation(endLocation, 50, function(data){
-				
-			globals.endlatLng = data.location.latLng;
-			globals.endID = data.location.pano;
+				console.log(endLocation);
+				globals.endlatLng = data.location.latLng;
+				globals.endID = data.location.pano;
 
-			var distance = Math.random()*100+100; //Start point is 100 to 200m from end
-			var angle = Math.random()*360;
+				var distance = Math.random()*100+100; //Start point is 100 to 200m from end
+				var angle = Math.random()*360;
 
-			var startLocation = new google.maps.geometry.spherical.computeOffset(globals.endlatLng, distance, angle);
-			helper.getPanoramaByLocation(startLocation,50, function(data){
+				var startLocation = new google.maps.geometry.spherical.computeOffset(globals.endlatLng, distance, angle);
+				helper.getPanoramaByLocation(startLocation,50, function(data){
 
-				if (data !== null) {
-					globals.startlatLng = data.location.latLng;
-					globals.startID = data.location.pano;
-					Street.setupGame();
-				}
-				else {
-					Street.getRandomStartpoint(endLocation);
-				}
-			});
+					if (data !== null) {
+						globals.startlatLng = data.location.latLng;
+						globals.startID = data.location.pano;
+						Street.setupGame();
+					}
+					else {
+						Street.getRandomStartpoint(endLocation);
+					}
+				});
 
 			});
 		}, 
@@ -327,7 +336,7 @@ $(document).ready(function() {
 			}
 		},
 		getNearestRoad: function(lat, lng) {
-
+			globals.id = Number($("#gameid").html());
 			var lat = Number($('#lat').html());
 			var lng = Number($('#lng').html());
 			var panoID = $.trim($('#panoid').html());
@@ -335,7 +344,7 @@ $(document).ready(function() {
 			if (panoID !== "") {
 				Street.getPanoIDLocation(panoID, function(location) {
 					Street.getRandomStartpoint(location, function(callback) {
-
+						Street.setupGame();
 					});
 				})
 			}

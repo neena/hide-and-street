@@ -167,12 +167,14 @@ h1 {
 	text-align: center;
 }
 
-
-.info-panel {
-	margin:0;
+.info-panel-container {
 	position:absolute;
 	bottom:15px;
 	right:15px;
+}
+.info-panel {
+	margin:0;
+	
 	width: 300px;
     /* must be half of the width, minus scrollbar on the left (30px) */
     margin-left: 300px;
