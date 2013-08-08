@@ -192,7 +192,7 @@ $(document).ready(function() {
 		distanceBetween: function(start, end) {
 			if (typeof start !== undefined && end !== undefined) { 
 				var distance = 1;
-				
+				/*
 				var result = $.parseJSON(Street.distanceBetweenGoogle(start, end));
 				
 				if (result.rows[0].elements[0].status == "OK") {
@@ -202,9 +202,13 @@ $(document).ready(function() {
 				else {
 					
 					distance = Street.distanceBetweenCrow(start, end);
-					
 				}
+
+				Using straight line due to problems with one way systems and all.
 				
+				*/
+
+				distance = Street.distanceBetweenCrow(start, end);
 				return distance;
 
 			}
