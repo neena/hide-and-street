@@ -23,13 +23,13 @@
 <div id="pano" class="panorama"></div>
 <div id="endpoint">
     <div id="lat">
-      <%=@endpoint.lat%>
+      <%=@endpoint.lat if @endpoint.lat%>
     </div>
     <div id="lng">
-      <%=@endpoint.lng%>
+      <%=@endpoint.lng if @endpoint.lng%>
     </div>
     <div id="panoid">
-      <%=@endpoint.pano%>
+      <%=@endpoint.pano if @endpoint.pano%>
     </div>
 </div>
 
