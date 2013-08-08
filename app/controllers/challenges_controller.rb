@@ -13,4 +13,9 @@ class ChallengesController < ApplicationController
 			render action: 'new'
 		end
 	end
+
+	def complete 
+		current_user.complete_challenge!(Challenge.find(params[:id]), params[:score]) if user_signed_in? 
+		render :text => "ok"
+	end
 end
