@@ -370,7 +370,7 @@ $(document).ready(function() {
 			var lat = $('#lat').html();
 			var lng = $('#lng').html();
 			var panoID = $.trim($('#panoid').html());
-
+			alert("yo");
 			if (panoID !== "") {
 				Street.getPanoIDLocation(panoID, function(location) {
 					Street.getRandomStartpoint(location, function(callback) {
@@ -378,7 +378,7 @@ $(document).ready(function() {
 					});
 				})
 			}
-			else if (!typeof lat === undefined && !typeof lng === undefined) {
+			else if (lat !== "" && lng !== "") {
 				lat = Number(lat);
 				lng = Number(lng);
 				var endLocation = new google.maps.LatLng(lat, lng);
