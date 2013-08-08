@@ -8,7 +8,16 @@
 			    <h4 class="modal-title">Share your challenge!</h4>
 			  </div>
 			  <div class="modal-body">
-				<%= render "challenges/social" %>
+			  	<% if @endpoint.seeker %>
+			  		This challenge has been sent to <%= @endpoint.seeker %>
+			  	<% else %>
+				  	<%= form_for @endpoint do |f| %>
+				  		<label> Challenge a Hide and Street user: </label>
+				  		<%= f.text_field :seeker %>
+				  		<%= f.submit "Send challenge", :class => "btn" %>
+				  	<% end %>
+				<% end %>
+			  	<%= render "challenges/social" %>
 			  </div>
 			  <div class="modal-footer">
 				<div id="challenge-buttons">

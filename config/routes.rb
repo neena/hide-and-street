@@ -4,4 +4,5 @@ HideAndStreet::Application.routes.draw do
   resources :challenges do 
   	get :complete, :on => :member
   end
+  resources :users, :only => [:show]
 end
