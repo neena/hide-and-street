@@ -10,6 +10,14 @@ h1 {
 	font-family: Righteous;
 	font-size: 20px;
 }
+
+h2,h3,h4,h5 {
+	font-family: Righteous;
+}
+
+h4{
+	display: inline;
+}
 #div-1a {
  position:absolute;
  top:0;
@@ -168,11 +176,26 @@ h1 {
 }
 
 
+.info-panel-container {
+	position:absolute;
+	bottom:15px;
+	right:15px;
+}
+
+
+li {
+	list-style: none;
+}
+
 .info-panel {
 	margin:0;
 	position:absolute;
 	bottom:15px;
 	right:15px;
+}
+.info-panel {
+	margin:0;
+	
 	width: 300px;
     /* must be half of the width, minus scrollbar on the left (30px) */
     margin-left: 300px;
