@@ -307,7 +307,7 @@ $(document).ready(function() {
 			    var lng = articles[i].lng;
 			    var url = articles[i].mobileurl;
 			    var item = new google.maps.LatLng(lat, lng);
-			    var image = "/assets/wikipedia.png";
+			    var image = "<%= asset_path('wikipedia.png') %>";
 			    var itemMarker = new google.maps.Marker({
 				      position: item,
 				      map: globals.panorama,
