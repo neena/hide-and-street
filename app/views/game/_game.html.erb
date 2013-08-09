@@ -9,7 +9,7 @@
         <p class="lead">You got <span id="winner-score"></span> points!</p>
         <p> <%=@endpoint.description%></p>
         <%= render "game/social" %>
-        <%= link_to "Challenge #{@endpoint.creator.username.humanize}" if @endpoint.creator %>
+        <%= link_to "Challenge #{@endpoint.creator.username.humanize}", new_challenge_path(:seeker_id => @endpoint.creator.id), :class => "btn btn-primary" if @endpoint.creator %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
