@@ -2,7 +2,7 @@
 	<% current_user.incomplete_challenges.each do |challenge|%> 
     <li>
  		<h4>
- 			<%=challenge.creator.email %> has challenged you	
+ 			<%=challenge.creator.username.humanize %> has challenged you	
  			<%=link_to "Accept this challenge", challenge, :class =>"btn btn-primary"%> 
  		</h4> 
  	</li> 
