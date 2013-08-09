@@ -3,7 +3,7 @@ HideAndStreet::Application.routes.draw do
   root 'game#show'
   get 'game/leaderboard'
   resources :challenges do 
-  	get :complete, :on => :member
+  	post :complete, :on => :member
   end
   resources :users, :only => [:show]
 end

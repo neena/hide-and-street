@@ -38,6 +38,12 @@ $(document).ready(function() {
 			$facebook_share.bind("click", Street.showFacebookDialog)
 			$info_modal_close.bind("click", Street.closeInfoModal);
 		},
+		sendPoints: function(score) {
+			var url = $("#complete_url").html();
+			$.post(url, {id: globals.id, score: score}, function() {
+			});
+			
+		},
 		calculatePoints: function(finalTime) {
 			var distance = globals.totalDistance;
 			var time = finalTime;
@@ -46,15 +52,9 @@ $(document).ready(function() {
 
 			score = score + (globals.collectedWiki * 30);
 			score = score.roundTo(5);
-			alert(score);
+			Street.sendPoints(score);
 
-			$.ajax({
-				type: "POST",
-			 	url: url,
-			 	data: data,
-			 	success: success,
-				dataType: dataType
-			});
+
 		},
 		winGame: function() {
 			var finalTime = Street.getTime();
@@ -367,6 +367,7 @@ $(document).ready(function() {
 		},
 		getNearestRoad: function(lat, lng) {
 			globals.id = Number($("#gameid").html());
+			Street.sendPoints(20);
 			var lat = $('#lat').html();
 			var lng = $('#lng').html();
 			var panoID = $.trim($('#panoid').html());
