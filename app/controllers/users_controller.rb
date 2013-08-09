@@ -6,6 +6,6 @@ class UsersController < ApplicationController
 		else 
 			@user = User.find_by_username(params[:id])
 		end
-		@endpoint = @user.challenges.offset(1 + rand(Challenge.count - 1)).first
+		@endpoint = @user.challenges.offset(rand(@user.challenges.count)).first
 	end
 end
