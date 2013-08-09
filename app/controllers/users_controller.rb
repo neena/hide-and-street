@@ -9,5 +9,6 @@ class UsersController < ApplicationController
 			@endpoint = @user.challenges.offset(rand(@user.challenges.count)).first
 		else
 			@endpoint = Challenge.first
+		end
 	end
 end
