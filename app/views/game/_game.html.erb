@@ -6,7 +6,10 @@
         <h4 class="modal-title">Winner!</h4>
       </div>
       <div class="modal-body">
-        <p> You have found it!<p>
+        <p class="lead">You got <span id="winner-score"></span> points!</p>
+        <p> <%=@endpoint.description%></p>
+        <%= render "game/social" %>
+        <%= link_to "Challenge #{@endpoint.creator.username.humanize}"
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -26,6 +29,7 @@
     <div id="lng"><%=@endpoint.lng%></div>
     <div id="panoid"><%=@endpoint.pano%></div>
     <div id="gameid"><%=@endpoint.id%></div>
+    <div id="complete_url"><%=complete_challenge_url(@endpoint)%></div>
 </div>
 <div class="info-panel-container">
   <div class="modal-dialog info-panel hidden" id="info_modal">

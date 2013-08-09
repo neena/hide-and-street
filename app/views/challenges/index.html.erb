@@ -1,3 +1,4 @@
+<div id="social-buttons">
 <ul id="challenges">   
 	<% current_user.incomplete_challenges.each do |challenge|%> 
     <li>
@@ -9,3 +10,4 @@
  	<% end %>
 	<li> <%=link_to "New Challenge", new_challenge_path, :class =>"btn btn-primary"%></li>
 </ul>
+</div>

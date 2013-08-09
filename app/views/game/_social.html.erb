@@ -1,0 +1,16 @@
+<a href="https://twitter.com/share" class="twitter-share-button" id="twitter-button" data-url="http://hide-and-street.herokuapp.com" data-text="I got 10 points on Hide and Street. Can you beat me?" data-via="HideAndStreet" data-related="HideAndStreet" data-hashtags="yrs2013">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<a href="#" id="facebook_share" data-id="<%=@endpoint.id%>">
+	  <%= image_tag "share.jpg", :id => "fb-share" %>
+</a>
+<!-- Place this tag where you want the share button to render. -->
+<div class="g-plus" data-action="share" data-href="http://hide-and-street.herokuapp.com/"></div>
+
+<!-- Place this tag after the last share tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>

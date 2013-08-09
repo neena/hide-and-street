@@ -1,0 +1,15 @@
+<h1> Leaderboard </h1>
+<table>
+	<tr> 
+		<th> Name </th> 
+		<th> Score </th>
+	</tr>
+	<%= @leaders.each do |leader| %> 
+		<td>
+			<%= leader.username %>
+		</td>
+		<td> 
+			<%= leader.score %>
+		</td>
+	<% end %> 
+</table>
