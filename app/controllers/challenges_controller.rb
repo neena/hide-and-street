@@ -10,7 +10,7 @@ class ChallengesController < ApplicationController
 	def create
 		@challenge = Challenge.new(params.require(:challenge).permit(:pano))
 		@challenge.creator = current_user if user_signed_in?
-		@challenge.seeker = User.find(params[:challenge][:seeker_id])
+		@challenge.seeker = User.find(params[:challenge][:seeker_id]) if params[:challenge][:seeker_id] != ""
 		if @challenge.save
 			redirect_to challenge_path(@challenge, :just_made => true)
 		else
